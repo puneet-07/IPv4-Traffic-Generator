@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>IPv4 Traffic Generator</title>
+    </head>
+    <body>
+        <h1 align="center">IPv4 TRAFFIC GENERATOR</h1>
+        <form method="POST" action="ipv4tg.php">
+            <table border='7' align='center'>
+                <tr>
+                    <td>Source Address IPv4</td>
+                    <td><input type="text" name="sourceadd"></td>
+                </tr>
+                <tr>
+                        <td>Destination Address IPv4</td>
+                        <td><input type="text" name="destadd"></td>
+                    </tr>
+                    <tr>
+                        <td>Protocol</td>
+                        <td><select name="protocol">
+                                <option selected="true" disabled="disabled">Select Protocol</option>
+                                <option value="udp">UDP</option>
+                                <option value="tcp">TCP</option>
+                                <option value="icmp">ICMP</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Source Port</td>
+                        <td><select id="sp" name="sp">
+                                <option selected="true" disabled="disabled">Select Port No</option>
+                                <option value="21">21</option>
+                                <option value="22">22</option>
+                                <option value="53">53</option>
+                                <option value="80">80</option>
+                                <option value="443">443</option>
+                                </select>
+                        </td>
+                    </tr>
+                    <tr>
+                            <td>Destination Port</td>
+                            <td><select id="dp" name="dp">
+                                    <option selected="true" disabled="disabled">Select Port No</option>
+                                    <option value="21">21</option>
+                                    <option value="22">22</option>
+                                    <option value="53">53</option>
+                                    <option value="80">80</option>
+                                    <option value="443">443</option>
+                                    </select>
+                        <script>
+                        function dis(obj1)
+                        {
+                        var v1=obj1.value;
+                        if(v1 == "icmp")
+                        {
+                            document.getElementById("sp").disabled=true;
+                            document.getElementById("dp").disabled=true;
+                        }
+                        else{
+                            document.getElementById("sp").disabled=false;
+                            document.getElementById("dp").disabled=false;
+                        }
+                        }
+                        </script>
+                         </td>
+                    </tr>
+                    <tr>
+                        <td>No. of Packets</td>
+                        <td>
+                                <select name="conti" onchange="disablen(this)">
+                                        <option selected="true" disabled="disabled">Select</option>
+                                        <option value="cont">Continuous</option>
+                                        <option value="ncont">Non-Continuous</option>
+                                    </select><br>
+                                    <input type="text" name="number" disabled="true" id="text1">
+                                    <script>
+                                    function disablen(obj){
+                                        var t1=document.getElementById("text1");
+                                        t1.disabled = obj.value =="cont";
+                                    }
+                                    </script>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Payload length per packet</td>
+                        <td><select name="pl">
+                                <option selected="true" disabled="disabled">Select Payload length</option>
+                                <option value="8">8</option>
+                                <option value="512">512</option>
+                            </select>
+                    </tr>
+                    <tr>
+                            <td>Interpacket Gap</td>
+                            <td><input type="text" name="igap"></td>
+                    </tr>
+                    <tr>
+                        <td>Payload Option</td>
+                        <td>
+                                <input type="radio" name="select" value="own" onclick="dis(this)" checked>Define My Own
+                                <input type="radio" name="select" value="random" onclick="dis(this)">Random<br>
+                                <input type="text" name="po" id="s1"><br>
+                                <script>
+                                        function dis(obj)
+                                        {
+                                            var w=obj.value;
+                                            if(w == "own")
+                                            {
+                                                document.getElementById("s1").disabled=false;
+                                            }
+                                            else if(w == "random")
+                                            {
+                                                document.getElementById("s1").disabled=true;
+                                            }
+                                        }
+                                </script>
+                        </td>  
+                    </tr>
+            </table><br><br> 
+            <center>
+            <input type="submit" name="submit" value="Submit">
+            <button type="reset">RESET</button>
+            </center>   <br>
+        </form>
+        <center>
+        <form method="POST" action="stop.php">
+            <input type="submit" value="Stop">
+        </form>
+         </center>
+    </body>
+</html>
