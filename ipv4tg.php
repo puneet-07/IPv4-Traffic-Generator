@@ -7,7 +7,7 @@ echo $pid1;
 $sa=$_POST['sourceadd'];
 $da=$_POST['destadd'];
 $p=$_POST['protocol'];
-if($p == "udp" || $p == "tcp")
+if($p == "udp" || $p == "tcp"|| $p == "icmp")
 {
     $sp=$_POST['sp'];
     $dp=$_POST['dp'];
@@ -24,12 +24,12 @@ if($po=="own")
 {
     $po1=$_POST['po'];
 }
-echo $sa,$da,$p,$sp,$dp,$c,$number,$pl,$ipg,$po,$po1;
+echo $sa,$da,$p,$sp,$dp,$c,$pl,$ipg,$po,$po1;
 $count=0;
 $len=strlen($po1);
 if($p == "udp")
 {
-    if($c == "count")
+    if($c == "cont")
     {
         if($po == "own")
         {
