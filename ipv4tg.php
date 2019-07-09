@@ -3,6 +3,7 @@
 
 <?php
 $pid1=getmypid();
+echo "PHP's process ID:";
 echo $pid1;
 $sa=$_POST['sourceadd'];
 $da=$_POST['destadd'];
@@ -24,8 +25,36 @@ if($po=="own")
 {
     $po1=$_POST['po'];
 }
-echo $sa,$da,$p,$sp,$dp,$c,$pl,$ipg,$po,$po1;
+echo "<br>";
+echo "Source Address:"; 
+echo $sa;
+echo "<br>";
+echo "Destination:"; 
+echo $da;
+echo "<br>";
+echo "Protocol:"; 
+echo $p;
+echo "<br>";
+echo "Source Port:";
+echo $sp;
+echo "<br>";
+echo "Destination Port:"; 
+echo $dp;
+echo "<br>";
+echo "No. of Packets:"; 
+echo $c;
+echo "<br>";
+echo "Payload length per packet:"; 
+echo $pl;
+echo "<br>";
+echo "Interpacket Gap:"; 
+echo $ipg;
+echo "<br>";
+echo "Payload Option:"; 
+echo $po;
+echo "<br>";
 $count=0;
+global $po1;
 $len=strlen($po1);
 if($p == "udp")
 {
@@ -38,9 +67,9 @@ if($p == "udp")
                 $data=substr($po1,$count,$pl);
                 $count=$count+$pl;
                 echo "<br>";
-                echo "sendip -p ipv4 -is $sa -p udp -us $sp -ud $dp -d '".$data."' -v $da ";
+                echo "sendip -p ipv4 -is $sa -p udp -us $sp -ud $dp -d '".$data."' -v $da";
                 echo "<br>";
-                system("sendip -p ipv4 -is $sa -p udp -us $sp -ud $dp -d '".$data."' -v $da ");
+                system("sendip -p ipv4 -is $sa -p udp -us $sp -ud $dp -d '".$data."' -v $da");
                 if($count>$len)
                 {
                     break;
@@ -52,7 +81,9 @@ if($p == "udp")
         {
             while(1)
             {
-               system("sendip -p ipv4 -is $sa -p udp -us $sp -ud $dp -d r ".$pl." -v $da");
+                echo "sendip -p ipv4 -is $sa -p udp -us $sp -ud $dp -d r".$pl." -v $da";
+                echo "<br>";
+                system("sendip -p ipv4 -is $sa -p udp -us $sp -ud $dp -d r".$pl." -v $da");
                sleep($ipg); 
             }
         }
@@ -65,7 +96,10 @@ if($p == "udp")
             {
                 $data=substr($po1,$count,$pl);
                 $count=$count+$pl;
-                system("sendip -p ipv4 -is $sa -p udp -us $sp -ud $dp -d ".$data." -v $da");
+                echo "<br>";
+                echo "sendip -p ipv4 -is $sa -p udp -us $sp -ud $dp -d '".$data."' -v $da";
+                echo "<br>";
+                system("sendip -p ipv4 -is $sa -p udp -us $sp -ud $dp -d '".$data."' -v $da");
                 if($count>$len)
                 {
                     break;
@@ -77,6 +111,9 @@ if($p == "udp")
         {
             for($i=0;$i<$number;$i++)
             {
+                echo "<br>";
+                echo "sendip -p ipv4 -is $sa -p udp -us $sp -ud $dp -d r".$pl." -v $da";
+                echo "<br>";
                 system("sendip -p ipv4 -is $sa -p udp -us $sp -ud $dp -d r".$pl." -v $da");
                 sleep($ipg);
             }
@@ -93,6 +130,9 @@ elseif($p == "tcp")
             {
                 $data=substr($po1,$count,$pl);
                 $count=$count+$pl;
+                echo "<br>";
+                echo "sendip -p ipv4 -is $sa -p tcp -us $sp -ud $dp -d '".$data."' -v $da";
+                echo "<br>";
                 system("sendip -p ipv4 -is $sa -p tcp -ts $sp -td $dp -d '".$data."' -v $da");
                 if($count>$len)
                 {
@@ -105,6 +145,9 @@ elseif($p == "tcp")
         {
             while(1)
             {
+                echo "<br>";
+                echo "sendip -p ipv4 -is $sa -p tcp -ts $sp -td $dp -d r'".$pl."' -v $da";
+                echo "<br>";
                 system("sendip -p ipv4 -is $sa -p tcp -ts $sp -td $dp -d r'".$pl."' -v $da");
                 sleep($ipg);
             }
@@ -118,7 +161,10 @@ elseif($p == "tcp")
             {
                 $data=substr($po1,$count,$pl);
                 $count=$count+$pl;
-                system("sendip -p ipv4 -is $sa -p tcp -ts $sp -td $dp -d ".$data." -v $da");
+                echo "<br>";
+                echo "sendip -p ipv4 -is $sa -p tcp -us $sp -ud $dp -d '".$data."' -v $da";
+                echo "<br>";
+                system("sendip -p ipv4 -is $sa -p tcp -ts $sp -td $dp -d '".$data."' -v $da");
                 if($count>$len)
                 {
                     break;
@@ -130,6 +176,9 @@ elseif($p == "tcp")
         {
             for($i=0;$i<$number;$i++)
             {
+                echo "<br>";
+                echo "sendip -p ipv4 -is $sa -p tcp -ts $sp -td $dp -d r'".$pl."' -v $da";
+                echo "<br>";
                 system("sendip -p ipv4 -is $sa -p tcp -ts $sp -td $dp -d r'".$pl."' -v $da");
                 sleep($ipg);
             }
@@ -146,6 +195,9 @@ elseif($p == "icmp")
             {
                 $data=substr($po1,$count,$pl);
                 $count=$count+$pl;
+                echo "<br>";
+                echo "sendip -p ipv4 -is $sa -p icmp -d '".$data."' -v $da";
+                echo "<br>";
                 system("sendip -p ipv4 -is $sa -p icmp -d '".$data."' -v $da");
                 if($count>$len)
                 {
@@ -158,7 +210,10 @@ elseif($p == "icmp")
         {
             while(1)
             {
-                system("sendip -p icmp -is $sa -d r'".$pl."' -v $da");
+                echo "<br>";
+                echo "sendip -p ipv4 -is $sa -p icmpp -d r'".$pl."' -v $da";
+                echo "<br>";
+                system("sendip -p ipv4 -is $sa -p icmp -d r'".$pl."' -v $da");
                 sleep($ipg);
             }
         }
@@ -171,7 +226,10 @@ elseif($p == "icmp")
             {
                 $data=substr($po1,$count,$pl);
                 $count=$count+$pl;
-                system("sendip -p ipv4 -is $sa -p icmp -d ".$data." -v $da");
+                echo "<br>";
+                echo "sendip -p ipv4 -is $sa -p icmp -d '".$data."' -v $da";
+                echo "<br>";
+                system("sendip -p ipv4 -is $sa -p icmp -d '".$data."' -v $da");
                 if($count>$len)
                 {
                     break;
@@ -183,6 +241,9 @@ elseif($p == "icmp")
         {
             for($i=0;$i<$number;$i++)
             {
+                echo "<br>";
+                echo "sendip -p ipv4 -is $sa -p icmpp -d r'".$pl."' -v $da";
+                echo "<br>";
                 system("sendip -p ipv4 -is $sa -p icmp -d r'".$pl."' -v $da");
                 sleep($ipg);
             }
